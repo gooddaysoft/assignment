@@ -35,5 +35,5 @@
 - 의미 있는 Git 커밋 메시지
 
 ## 6. 제출 방식
-- GitHub **main** 브랜치에 최종 코드 푸시
+- GitHub **main** 브랜치에 최종 코드 푸시 후 Pull Request 생성
 
