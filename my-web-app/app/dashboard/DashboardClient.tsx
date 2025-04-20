@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import DailyUsage from './DailyUsage';
 
 interface DashboardData {
   userName: string;
@@ -24,8 +25,8 @@ export default function DashboardClient() {
 
   return (
     <main className="flex justify-center items-center min-h-screen bg-gray-50">
-      <section className="p-8 space-y-6 bg-pink-50 rounded-lg shadow-md">
-        <header className="flex justify-start items-end gap-3">
+      <section className="px-20 py-10 bg-pink-50 rounded-lg shadow-md">
+        <header className="flex justify-start items-end gap-3 mb-8">
           <h1 className="text-2xl font-bold">{data?.userName} 님</h1>
           <span className="text-lg font-semibold">{data?.currentPlan}</span>
         </header>
@@ -43,6 +44,7 @@ export default function DashboardClient() {
             </dd>
           </div>
         </dl>
+        <DailyUsage />
       </section>
     </main>
   );
