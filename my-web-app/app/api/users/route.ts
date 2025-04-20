@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import type { User } from "./types";
+import type { User } from "../types";
 
 const USERS: User[] = [
   { id: "user1", username: "test", password: "password123" },

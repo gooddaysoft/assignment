@@ -1,12 +1,56 @@
 'use client';
 
+import { useRouter } from 'next/navigation';
+import { useState } from 'react';
+
 export default function LoginPage() {
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
+
+  const router = useRouter();
+
+  const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    if (!username || !password) {
+      setError('아이디와 비밀번호를 모두 입력해주세요.');
+      return;
+    }
+
+    const res = await fetch('/api/users', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ username, password }),
+    });
+
+    if (res.ok) {
+      const data = await res.json();
+      localStorage.setItem('user', JSON.stringify(data.user));
+
+      router.push('/dashboard');
+    } else {
+      setError('아이디 혹은 비밀번호가 틀렸습니다.');
+    }
+  };
+
   return (
     <div className="flex justify-center items-center min-h-screen bg-gray-50">
-      <form className="flex flex-col shadow-lg px-28 py-20 rounded-md bg-white">
-        <input type="text" placeholder="아이디" className="border w-64 h-14 mb-5 pl-3 rounded-sm" />
-        <input type="password" placeholder="비밀번호" className="border w-64 h-14 mb-8 pl-3 rounded-sm" />
-        <button type="submit" className="w-64 h-14 rounded-md bg-pink-100 hover:bg-pink-200 font-semibold">
+      <form className="flex flex-col shadow-lg px-28 py-20 rounded-md bg-white" onSubmit={handleLogin}>
+        <input
+          type="text"
+          placeholder="아이디"
+          className="border w-64 h-14 mb-5 pl-3 rounded-sm outline-none"
+          onChange={(e) => setUsername(e.target.value)}
+        />
+        <input
+          type="password"
+          placeholder="비밀번호"
+          className="border w-64 h-14 mb-3 pl-3 rounded-sm outline-none"
+          onChange={(e) => setPassword(e.target.value)}
+        />
+        {error && <p className="text-red-500 text-sm font-bold">{error}</p>}
+        <button type="submit" className="w-64 h-14 rounded-md mt-3 bg-pink-100 hover:bg-pink-200 font-semibold">
           로그인
         </button>
       </form>

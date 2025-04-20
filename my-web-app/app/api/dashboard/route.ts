@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import type { DashboardData } from "./types";
+import type { DashboardData } from "../types";
 
 const DASHBOARD: DashboardData = {
   userName: "Jane Doe",
