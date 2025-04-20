@@ -44,7 +44,7 @@ export default function DashboardClient() {
             </dd>
           </div>
         </dl>
-        <DailyUsage />
+        {data?.dailyUsage && <DailyUsage usage={data.dailyUsage} />}
       </section>
     </main>
   );

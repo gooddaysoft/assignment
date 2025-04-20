@@ -5,17 +5,22 @@ import { Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement
 
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Tooltip, Legend);
 
-export default function DailyUsageChart() {
+interface DailyUsage {
+  date: string;
+  count: number;
+}
+
+export default function DailyUsageChart({ usage }: { usage: DailyUsage[] }) {
   const data = {
-    labels: ['1', '2', '3', '4', '5'],
+    labels: usage.map((item) => item.date.slice(5)),
     datasets: [
       {
         label: '일별 사용량',
-        data: [100, 120, 80, 130, 95],
+        data: usage.map((item) => item.count),
         fill: false,
         borderColor: 'rgba(255, 99, 132, 1)',
         backgroundColor: 'rgba(255, 99, 132, 0.2)',
-        tension: 0.5,
+        tension: 0.3,
       },
     ],
   };
