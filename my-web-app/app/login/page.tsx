@@ -25,9 +25,6 @@ export default function LoginPage() {
     });
 
     if (res.ok) {
-      const data = await res.json();
-      localStorage.setItem('user', JSON.stringify(data.user));
-
       router.push('/dashboard');
     } else {
       setError('아이디 혹은 비밀번호가 틀렸습니다.');
