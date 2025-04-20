@@ -9,6 +9,8 @@ export default function DashboardPage() {
 
   if (!loggedIn) {
     redirect('/login');
+    // Next.js의 redirect 함수는 호출 즉시 예외를 발생시켜(throw) 실행을 중단하고
+    // 리다이렉트 처리를 서버에서 바로 반환하기 때문에 별도의 return을 작성할 필요가 없습니다.
   }
 
   return <DashboardClient />;
