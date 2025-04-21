@@ -1,0 +1,52 @@
+'use client';
+
+import { DashboardData } from '../api/types';
+import { useEffect, useState } from 'react';
+import DailyUsage from './DailyUsage';
+
+export default function DashboardClient() {
+  const [data, setData] = useState<DashboardData | null>(null);
+
+  useEffect(() => {
+    const fetchDashboard = async () => {
+      try {
+        const res = await fetch('/api/dashboard');
+        if (!res.ok) throw new Error('서버 응답 오류');
+
+        const json: DashboardData = await res.json();
+        setData(json);
+      } catch (e) {
+        console.error(e);
+        setData(null);
+      }
+    };
+
+    fetchDashboard();
+  }, []);
+
+  return (
+    <main className="flex justify-center items-center min-h-screen bg-gray-50">
+      <section className="px-20 py-10 bg-pink-50 rounded-lg shadow-md">
+        <header className="flex justify-start items-end gap-3 mb-8">
+          <h1 className="text-2xl font-bold">{data?.userName} 님</h1>
+          <span className="text-lg font-semibold">{data?.currentPlan}</span>
+        </header>
+        <dl className="grid grid-cols-2 gap-4">
+          <div className="p-4 bg-pink-200 rounded-xl shadow">
+            <dt className="mb-1">이번 달 청구 예정 금액</dt>
+            <dd>
+              <strong>{data?.thisMonthUsage}원</strong>
+            </dd>
+          </div>
+          <div className="p-4 bg-pink-200 rounded-xl shadow">
+            <dt className="mb-1">총 사용량</dt>
+            <dd>
+              <strong>{data?.dailyUsage.reduce((sum, d) => sum + d.count, 0)}</strong>
+            </dd>
+          </div>
+        </dl>
+        {data?.dailyUsage && <DailyUsage usage={data.dailyUsage} />}
+      </section>
+    </main>
+  );
+}

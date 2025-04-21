@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import type { Plan } from "./types";
+import type { Plan } from "../types";
 
 const PLANS: Plan[] = [
   {
