@@ -2,15 +2,11 @@
 
 import { Line } from 'react-chartjs-2';
 import { Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement, Tooltip, Legend } from 'chart.js';
+import { DashboardData } from '../api/types';
 
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Tooltip, Legend);
 
-interface DailyUsage {
-  date: string;
-  count: number;
-}
-
-export default function DailyUsageChart({ usage }: { usage: DailyUsage[] }) {
+export default function DailyUsageChart({ usage }: { usage: DashboardData['dailyUsage'] }) {
   const data = {
     labels: usage.map((item) => item.date.slice(5)),
     datasets: [
