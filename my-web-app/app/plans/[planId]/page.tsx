@@ -3,18 +3,12 @@ import { Plan } from '../../api/types';
 import { notFound } from 'next/navigation';
 
 export default async function PlanDetailPage({ params }: { params: { planId: string } }) {
-  console.log(params.planId);
-
   const res = await fetch('http://localhost:3000/api/plans', {
     cache: 'no-store',
   });
   const plans: Plan[] = await res.json();
 
-  console.log(plans);
-
   const plan = plans.find((p) => p.id === params.planId);
-
-  console.log(plan);
 
   if (!plan) return notFound();
 
