@@ -18,16 +18,20 @@ export default function LoginPage() {
       return;
     }
 
-    const res = await fetch('/api/users', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ username, password }),
-    });
+    try {
+      const res = await fetch('/api/users', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ username, password }),
+      });
 
-    if (res.ok) {
-      router.push('/dashboard');
-    } else {
-      setError('아이디 혹은 비밀번호가 틀렸습니다.');
+      if (res.ok) {
+        router.push('/dashboard');
+      } else {
+        setError('아이디 혹은 비밀번호가 틀렸습니다.');
+      }
+    } catch (e) {
+      setError('네트워크 오류가 발생했습니다.');
     }
   };
 
