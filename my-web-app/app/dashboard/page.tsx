@@ -1,6 +1,7 @@
 import { cookies } from 'next/headers';
 import DashboardClient from './DashboardClient';
 import { redirect } from 'next/navigation';
+import Link from 'next/link';
 
 export default function DashboardPage() {
   const cookieStore = cookies();
@@ -13,5 +14,12 @@ export default function DashboardPage() {
     // 리다이렉트 처리를 서버에서 바로 반환하기 때문에 별도의 return을 작성할 필요가 없습니다.
   }
 
-  return <DashboardClient />;
+  return (
+    <div className="p-5 bg-gray-50">
+      <Link href="/plans" className="bg-blue-300 hover:bg-blue-400 px-6 py-2.5 rounded font-semibold">
+        Plan Selection 페이지로 이동하기
+      </Link>
+      <DashboardClient />
+    </div>
+  );
 }
