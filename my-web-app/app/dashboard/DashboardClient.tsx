@@ -9,9 +9,16 @@ export default function DashboardClient() {
 
   useEffect(() => {
     const fetchDashboard = async () => {
-      const res = await fetch('/api/dashboard');
-      const json = await res.json();
-      setData(json);
+      try {
+        const res = await fetch('/api/dashboard');
+        if (!res.ok) throw new Error('서버 응답 오류');
+
+        const json: DashboardData = await res.json();
+        setData(json);
+      } catch (e) {
+        console.error(e);
+        setData(null);
+      }
     };
 
     fetchDashboard();
