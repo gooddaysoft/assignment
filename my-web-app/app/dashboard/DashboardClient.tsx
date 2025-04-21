@@ -1,14 +1,8 @@
 'use client';
 
+import { DashboardData } from '../api/types';
 import { useEffect, useState } from 'react';
 import DailyUsage from './DailyUsage';
-
-interface DashboardData {
-  userName: string;
-  currentPlan: string;
-  thisMonthUsage: number;
-  dailyUsage: { date: string; count: number }[];
-}
 
 export default function DashboardClient() {
   const [data, setData] = useState<DashboardData | null>(null);
